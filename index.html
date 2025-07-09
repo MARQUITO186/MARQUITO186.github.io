@@ -5,94 +5,154 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Invitación Cumpleaños Niki</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
-
-  <!-- fullPage.js CSS -->
+  <!-- Fuentes personalizables -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.css"/>
 
   <style>
-    /* reset y estilos globales */
-    * { margin:0; padding:0; box-sizing:border-box }
-    html, body { height:100%; overflow:hidden }
     body {
-      font-family:'Montserrat',sans-serif;
-      color:#fff;
-      background:#000;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      background: #000;
+      text-align: center;
+      margin: 0;
+      padding: 0;
     }
+
     h1 {
-      font-family:'Pacifico',cursive;
-      font-size:3em;
-      margin-bottom:.5em;
+      font-family: 'Pacifico', cursive;
+      font-size: 3.2em;
+      margin-bottom: 0.5em;
     }
+
     .large {
-      font-size:2.5em; font-weight:700;
-      color:#FFD700; margin-bottom:.3em;
-      text-transform:uppercase;
+      font-size: 2.4em;
+      font-weight: 700;
+      color: #FFD700;
+      margin-bottom: 0.3em;
+      text-transform: uppercase;
     }
-    p { font-size:1.2em; margin:.3em 0 }
+
+    p {
+      font-size: 1.3em;
+      margin: 0.4em 0;
+    }
+
     .btn-whatsapp {
-      display:inline-block;
-      background:#25D366; color:#fff;
-      padding:.8em 1.5em; border-radius:50px;
-      text-decoration:none; font-weight:bold;
-      margin-top:1em;
+      display: inline-block;
+      background: #25D366;
+      color: #fff;
+      padding: 0.8em 1.5em;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 1em;
+      font-size: 1.1em;
+      transition: transform 0.2s;
     }
+
+    .btn-whatsapp:active {
+      transform: scale(0.95);
+    }
+
     #countdown {
-      font-size:2em;
-      background:rgba(255,215,0,0.8); color:#000;
-      padding:.5em 1em; border-radius:8px;
-      font-weight:700; margin-top:1em;
-      display:inline-block;
+      font-size: 2em;
+      background: rgba(255,215,0,0.8);
+      color: #000;
+      padding: 0.5em 1em;
+      border-radius: 8px;
+      font-weight: 700;
+      margin-top: 1em;
+      display: inline-block;
     }
 
-    /* secciones fullPage */
     .section {
-      position:relative;
-      text-align:center;
-      background-size:cover;
-      background-position:center;
-    }
-    .section::before {
-      content:'';
-      position:absolute; inset:0;
-      background:rgba(0,0,0,0.6);
-    }
-    .section .content {
-      position:relative; z-index:1;
-      padding:0 20px;
-      max-width:700px; margin:0 auto;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
     }
 
-    /* player fijo */
-    #bg-audio {
-      position:fixed;
-      bottom:20px; left:50%;
-      transform:translateX(-50%);
-      z-index:9999;
-      width:90%; max-width:350px;
+    .section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
     }
-    audio { width:100% }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      padding: 0 20px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    #botones-flotantes {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    #boton-audio, #boton-confirmar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    #boton-audio:active, #boton-confirmar:active {
+      transform: scale(0.9);
+    }
+
+    #boton-audio {
+      background: #1DB954;
+      border: none;
+    }
+
+    #boton-confirmar {
+      background: #25D366;
+    }
+
+    #boton-audio img, #boton-confirmar img {
+      width: 32px;
+      height: 32px;
+    }
+
+    #bg-audio {
+      display: none;
+    }
   </style>
 </head>
 <body>
 
-  <!-- reproductor persistente -->
-  <audio
-    id="bg-audio"
-    src="audio/musica.mp3"
-    controls autoplay loop playsinline
-  ></audio>
+  <!-- Botones flotantes -->
+  <div id="botones-flotantes">
+    <button id="boton-audio" title="Activar música">
+      <img src="images/spotify-icon.png" alt="Spotify">
+    </button>
+    <a href="#" id="boton-confirmar" target="_blank" title="Confirmar asistencia">
+      <img src="images/whatsapp-icon.png" alt="WhatsApp">
+    </a>
+  </div>
+
+  <audio id="bg-audio" src="audio/musica.mp3" autoplay loop playsinline muted></audio>
 
   <div id="fullpage">
-    <!-- Sección 1: Cumpleaños -->
     <div class="section" style="background-image:url('images/bg1.jpg')">
-      <div class="content">
-        <h1>Cumpleaños Niki</h1>
-      </div>
+      <div class="content"><h1>Cumpleaños Niki</h1></div>
     </div>
 
-    <!-- Sección 2: Día, Fecha y Hora -->
     <div class="section" style="background-image:url('images/bg2.jpg')">
       <div class="content">
         <div class="large">Sábado</div>
@@ -101,7 +161,6 @@
       </div>
     </div>
 
-    <!-- Sección 3: Invitación -->
     <div class="section" style="background-image:url('images/bg3.jpg')">
       <div class="content">
         <h1>Invitación</h1>
@@ -109,32 +168,14 @@
       </div>
     </div>
 
-    <!-- Sección 4: Ubicación -->
     <div class="section" style="background-image:url('images/bg4.jpg')">
       <div class="content">
         <h1>Ubicación</h1>
         <p>Salón Dorado, Sacaba</p>
-        <a href="TU_ENLACE_DE_GOOGLE_MAPS"
-           target="_blank"
-           class="btn-whatsapp">
-          Ver en Google Maps
-        </a>
+        <a href="#" target="_blank" class="btn-whatsapp" id="btn-maps">Ver en Google Maps</a>
       </div>
     </div>
 
-    <!-- Sección 5: Confirmación -->
-    <div class="section" style="background-image:url('images/bg5.jpg')">
-      <div class="content">
-        <h1>Confirmación</h1>
-        <a href="https://wa.me/TU_NUMERO?text=¡Hola%20Niki!%20Confirmo%20mi%20asistencia."
-           target="_blank"
-           class="btn-whatsapp">
-          Confirmar en WhatsApp
-        </a>
-      </div>
-    </div>
-
-    <!-- Sección 6: Cuenta regresiva -->
     <div class="section" style="background-image:url('images/bg6.jpg')">
       <div class="content">
         <h1>Falta para la fiesta</h1>
@@ -143,10 +184,8 @@
     </div>
   </div>
 
-  <!-- fullPage.js + configuración -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
   <script>
-    // Inicializa fullPage.js
     new fullpage('#fullpage', {
       navigation: true,
       scrollingSpeed: 700,
@@ -154,34 +193,43 @@
       fitToSection: true
     });
 
-    // Contador regresivo en formato ISO
+    // Activar música
+    document.getElementById('boton-audio').addEventListener('click', () => {
+      const audio = document.getElementById('bg-audio');
+      audio.muted = false;
+      audio.play().catch(()=>{});
+    });
+
+    // Cuenta regresiva para sábado 12 julio 2025 17:00
     (function(){
-      const target = Date.parse("2025-07-20T17:00:00");
+      const target = Date.parse("2025-07-12T17:00:00");
       const el = document.getElementById('countdown');
-      function update() {
+      function update(){
         const diff = target - Date.now();
-        if (diff <= 0) {
-          el.textContent = "¡La fiesta ya empezó!";
-          return clearInterval(timer);
+        if (diff <= 0){
+          el.textContent = "¡La fiesta ya comenzó!";
+          return clearInterval(t);
         }
-        const d = Math.floor(diff/86400000),
-              h = Math.floor((diff%86400000)/3600000),
-              m = Math.floor((diff%3600000)/60000),
-              s = Math.floor((diff%60000)/1000);
+        const d = Math.floor(diff / 86400000),
+              h = Math.floor((diff % 86400000) / 3600000),
+              m = Math.floor((diff % 3600000) / 60000),
+              s = Math.floor((diff % 60000) / 1000);
         el.textContent = `${d}d ${h}h ${m}m ${s}s`;
       }
-      const timer = setInterval(update, 1000);
+      const t = setInterval(update, 1000);
       update();
     })();
 
-    // Desmutar y forzar autoplay al primer toque
-    window.addEventListener('touchstart', () => {
-      const audio = document.getElementById('bg-audio');
-      if (audio.muted) {
-        audio.muted = false;
-        audio.play().catch(()=>{});
-      }
-    }, { once: true });
+    // Cargar datos.json para WhatsApp y Maps con mensaje pregrabado
+    fetch('datos.json')
+      .then(res => res.json())
+      .then(data => {
+        const mensaje = encodeURIComponent("¡Hola Niki! Confirmo mi asistencia con mucha alegría 🎉 Nos vemos el 12 de julio.");
+        document.getElementById('boton-confirmar').href =
+          `https://wa.me/${data.numero}?text=${mensaje}`;
+        document.getElementById('btn-maps').href = data.ubicacion;
+      })
+      .catch(() => console.log("Error al cargar datos.json"));
   </script>
 </body>
-</html> 
+</html>
